@@ -7,7 +7,6 @@
 
 **8 Plugins used in VS-CODE:**  
 
-
 	**Prettier**  
 	**JavaScipt(ES6) Code Snippet**  
 	**Debugger for chrome**  
