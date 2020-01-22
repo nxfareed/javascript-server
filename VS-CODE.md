@@ -3,9 +3,7 @@
 **3. Git Integration :** VSCode comes wiithh an integrated Git that allows for Adding, Committing, Pulling and Pushing changes to a remote Git repository  
 **4. Debugging:** It has a rich  API for enabling debugging tools.  
 **5. Split Views:** It allows you to open multiple editor windows on the same screen  
-
-
-# 8 Plugins used in VS-CODE:  
+**8 Plugins used in VS-CODE**  
 	**Prettier**  
 	**JavaScipt(ES6) Code Snippet**  
 	**Debugger for chrome**  
