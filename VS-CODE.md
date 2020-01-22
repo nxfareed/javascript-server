@@ -5,7 +5,7 @@
 **5. Split Views:** It allows you to open multiple editor windows on the same screen  
 
 
-#8 Plugins used in VS-CODE:  
+# 8 Plugins used in VS-CODE:  
 	**Prettier**  
 	**JavaScipt(ES6) Code Snippet**  
 	**Debugger for chrome**  
