@@ -11,7 +11,7 @@
 ##### Strictly separate build and run stages
 ### 6. Processes
 ##### Execute the app as one or more stateless processes
-###7. Port binding
+### 7. Port binding
 ##### Export services via port binding
 ### 8. Concurrency
 ##### Scale out via the process model
