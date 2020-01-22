@@ -6,14 +6,14 @@
 
 
 #8 Plugins used in VS-CODE:
-###Prettier
-###JavaScipt(ES6) Code Snippet
-###Debugger for chrome
-###ESLint
-###GitLens
-###REST Client
-###LiveServer
-###Settings Sync
+	###Prettier
+	###JavaScipt(ES6) Code Snippet
+	###Debugger for chrome
+	###ESLint
+	###GitLens
+	###REST Client
+	###LiveServer
+	###Settings Sync
 
 
 
