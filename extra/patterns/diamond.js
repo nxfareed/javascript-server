@@ -1,5 +1,5 @@
-let s = Number(process.argv[2]);
-diamond(s);
+//let s = Number(process.argv[2]);
+//diamond(s);
 function diamond(o) {
     if (o < 11 && o > 1) {
         for (let j = 0; j < o; j++) {
@@ -14,7 +14,7 @@ function diamond(o) {
             let c = " ";
             for (let j = 0; j < o - i; j++)
                 c = c + " ";
-            for (k = 0; k < i; k++)
+            for (let k = 0; k < i; k++)
                 c = c + " *";
             console.log(c)
         }
@@ -23,3 +23,4 @@ function diamond(o) {
         console.log("wrong input");
     }
 }
+export default diamond;
