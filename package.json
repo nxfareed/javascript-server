@@ -9,8 +9,21 @@
     "permission": "node extra/utils/permissions.js",
     "validation": "node extra/utils/validation.js",
     "start:extra": "npx babel-node extra",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:extraTs": "tsc-watch --project . --onSuccess \"npm run nodemon\"",
+    "nodemon": "nodemon ./dist/index.js",
+    "lint": "./node_modules/tslint/bin/tslint -c tslint.json -p tsconfig.json --exclude 'node_modules/**/*.{j,t}s'",
+    "lint:fix": "npm run lint --fix",
+    "commit": "npx git-cz"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm test",
+      "pre-push": "npm run lint && npm test"
+    }
+  },
+  
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nxfareed/javascript-server.git"
@@ -25,5 +38,12 @@
     "@babel/core": "^7.8.3",
     "@babel/node": "^7.8.3",
     "@babel/preset-env": "^7.8.3"
+  },
+  "devDependencies": {
+    "husky": "^4.2.1",
+    "nodemon": "^2.0.2",
+    "tsc-watch": "^4.1.0",
+    "tslint": "^6.0.0",
+    "typescript": "^3.7.5"
   }
 }
