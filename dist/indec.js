@@ -5,4 +5,4 @@ const Server_1 = require("./Server");
 const server = new Server_1.default(configuration_1.default);
 server.bootstrap();
 server.run();
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=indec.js.map
