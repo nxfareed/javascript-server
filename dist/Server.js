@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const errorHandler_1 = require("./libs/routes/errorHandler");
 const notFoundRoute_1 = require("./libs/routes/notFoundRoute");
+const router_1 = require("./router");
 class Server {
     constructor(config) {
         this.config = config;
@@ -36,11 +37,12 @@ class Server {
                 console.log('Inside health check');
                 res.send('I am OK');
             });
-            app.use('/api', (req, res, next) => {
+            app.use('/body-parser', (req, res, next) => {
                 console.log('Inside Middleware');
                 console.log(req.body);
                 res.send(req.body);
             });
+            app.use('/api', router_1.default);
             app.use(notFoundRoute_1.default);
             app.use(errorHandler_1.default);
             return this;
