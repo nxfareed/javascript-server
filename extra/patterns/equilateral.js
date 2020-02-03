@@ -1,5 +1,5 @@
-let m = Number(process.argv[2]);
-equilateral(m);
+//let m = Number(process.argv[2]);
+//equilateral(m);
 function equilateral(a) {
     if (a > 2 && a < 11) {
         for (let i = 1; i <= a; i++) {
@@ -19,3 +19,4 @@ function equilateral(a) {
     else
         console.log("wrong choice");
 }
+export default equilateral;

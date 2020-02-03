@@ -6,6 +6,9 @@
   "scripts": {
     "diamond": "node extra/patterns/diamond.js",
     "equilateral": "node extra/patterns/equilateral.js",
+    "permission": "node extra/utils/permissions.js",
+    "validation": "node extra/utils/validation.js",
+    "start:extra": "npx babel-node extra",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/nxfareed/javascript-server/issues"
   },
-  "homepage": "https://github.com/nxfareed/javascript-server#readme"
+  "homepage": "https://github.com/nxfareed/javascript-server#readme",
+  "dependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/preset-env": "^7.8.3"
+  }
 }

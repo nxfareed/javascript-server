@@ -1,36 +1,6 @@
-const users = [
-    {
-        traineeEmail: 'trainee@successive.tech',
-        reviewerEmail: 'reviewer@successive.tech',
-    },
-
-    {
-        traineeEmail: 'trainee@successive.tech',
-        reviewerEmail: 'reviewer@successive.tech',
-    },
-
-    {
-        traineeEmail: 'trainee2@sucssive.tech',
-        reviewerEmail: 'reviewer2@successive.tech',
-    },
-
-    {
-        traineeEmail: 'trainee3@successive.tech',
-        reviewerEmail: 'reviewer3@successive.tech',
-    },
-]
-
-function validateEmail(email) {
-    const regex = /([a-zA-Z0-9\+_.@])+@successive.tech/gm;
-    
-    const result = regex.test(email);
-    
-    return result
-
-
-}
-validateUser(users);
-function validateUser(users) {
+import {validateEmail} from './helpers';
+//validateUser(users);
+export default function validateUser(users) {
     let validUser = [];
     let invalidUser = [];
 
