@@ -1,7 +1,7 @@
-import {diamond} from './patterns/index'
-import {equilateral} from './patterns/index'
-import {hasPermissions, validateUser} from './utils/index';
-import {users} from './constants';
+import { diamond } from './patterns/index'
+import { equilateral } from './patterns/index'
+import { hasPermissions, validateUser } from './utils/index';
+import { users } from './constants';
 
 diamond(5);
 equilateral(4);
