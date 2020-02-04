@@ -5,21 +5,17 @@ import * as bodyParser from 'body-parser';
 import errorHandler from './libs/routes/errorHandler';
 import notFoundRoutes from './libs/routes/notFoundRoute';
 import { Request } from 'express';
-
 class Server {
     private app: express.Express;
-
     constructor(private config: Iconfig) {
         this.app = express();
     }
-
     bootstrap = () => {
         console.log('Inside Bootstrap');
         this.initBodyParser();
         this.setupRoutes();
         return this;
     }
-
     initBodyParser = () => {
         const { app } = this;
 
@@ -30,7 +26,6 @@ class Server {
         // parse application/json
         app.use(bodyParser.json());
     }
-
     run = () => {
         const { app, config: { port } } = this;
 
@@ -42,7 +37,6 @@ class Server {
             console.log('App is running successfully on port ' + port);
         });
     }
-
     setupRoutes = () => {
         const { app } = this;
 
@@ -62,5 +56,4 @@ class Server {
         return this;
     }
 }
-
 export default Server;
