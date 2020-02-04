@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 
 "compilerOptions": {
 "module": "commonjs",
@@ -25,6 +26,8 @@
 "src"
 ],
 "types": ["src/types"]
+=======
+>>>>>>> 4989eedde3b667c7e15101ae4915eb03cb683244
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
@@ -49,7 +52,7 @@
         "dist"
     ],
     "include": [
-        "src"
+        "src" 
     ],
     "types": [
         "src/types"
