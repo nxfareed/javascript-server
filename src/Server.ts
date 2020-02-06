@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import errorHandler from './libs/routes/errorHandler';
 import notFoundRoutes from './libs/routes/notFoundRoute';
 import { Request } from 'express';
+import mainRouter from './router';
 class Server {
     private app: express.Express
     constructor(private config: Iconfig) {
@@ -30,6 +31,16 @@ class Server {
             console.log("Inside health check");
             res.send('I am OK');
         });
+        app.use('/body-parser', (req: Request, res, next) => {
+            console.log('Inside Middleware');
+            console.log(req.body);
+            res.send(req.body);
+            });
+            
+            app.use('/api', mainRouter);
+            
+            app.use(notFoundRoutes);
+            app.use(errorHandler);
 
         return this;
     }

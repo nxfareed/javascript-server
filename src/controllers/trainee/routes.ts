@@ -3,10 +3,13 @@ import traineeController from './controller';
 
 const traineeRouter = Router();
 
+
+
+const { create, list, update } = traineeController;
 traineeRouter.route('/trainee')
-.get( traineeController.create )
-.post( traineeController.list)
-.put( traineeController.update)
-.delete( traineeController.delete);
+    .get(create)
+    .post(list)
+    .put(update)
+    .delete(traineeController.delete)
 
 export default traineeRouter;
