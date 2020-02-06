@@ -11,9 +11,16 @@ class Server {
         this.app = express();
     }
     bootstrap = () => {
-        console.log('Inside Bootstrap')
+        console.log('Inside Bootstrap');
+        this.initBodyParser();
         this.setupRoutes();
         return this;
+    }
+    initBodyParser = (): void => {
+        const { app } = this;
+        app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(bodyParser.json());
+
     }
     run = () => {
         const { app, config: { port } } = this;
