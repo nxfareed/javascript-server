@@ -11,7 +11,7 @@ export default (config) => {
 
                     // If Body has this key is Presented
                     if (config[key].required && !req[location][key]) {
-                       
+
                         arr.push(`${key} is requird`);
                     }
                     // Check for the string
@@ -56,6 +56,6 @@ export default (config) => {
                 });
             }
         });
-        arr.length ? next({arr}) : next();
+        arr.length ? next({ arr }) : next();
     };
 };
