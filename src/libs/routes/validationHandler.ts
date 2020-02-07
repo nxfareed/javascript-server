@@ -2,14 +2,14 @@ export default (config) => {
     return (req, res, next) => {
         const arr: string[] = [];
         Object.keys(config).forEach(key => {
-            // Check the In key for validations
+            // Checks the entered key for validations
             if (config[key].in) {
                 config[key].in.forEach(location => {
                     console.log(req[location]);
                     let keyValue = req[location][key];
                     const values = Object.keys(req[location]);
 
-                    // If Body has this key is Presented
+                    // If Body has this key, it is Presented
                     if (config[key].required && !req[location][key]) {
 
                         arr.push(`${key} is requird`);
@@ -32,14 +32,13 @@ export default (config) => {
                             arr.push(`${key} should be Valid`);
                         }
                     }
-                    // If key contains regex module
                     if (config[key].regex) {
                         const regexString = new RegExp(config[key].regex);
                         if (!regexString.test(keyValue)) {
                             arr.push(`Invalid ${key}`);
                         }
                     }
-                    // If Key contains isObject and Checks the Object is retrived from Body
+                    // If Key contains isObject, Checks the Object and is retrived from Body
                     if (config[key].isObject && !(typeof req[location][key] === 'object')) {
                         arr.push('Data is required of type object');
                     }
