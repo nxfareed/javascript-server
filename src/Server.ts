@@ -35,12 +35,12 @@ class Server {
             console.log('Inside Middleware');
             console.log(req.body);
             res.send(req.body);
-            });
-            
-            app.use('/api', mainRouter);
-            
-            app.use(notFoundRoutes);
-            app.use(errorHandler);
+        });
+
+        app.use('/api', mainRouter);
+
+        app.use(notFoundRoutes);
+        app.use(errorHandler);
 
         return this;
     }
