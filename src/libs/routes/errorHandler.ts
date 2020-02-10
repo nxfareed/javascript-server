@@ -1,7 +1,6 @@
 const errorHandler = (err, req, res, next) => {
     console.log('Error', err);
     const errorArray = [];
-    console.log('-----------IS ARRAY-----------', Array.isArray(err));
     if (Array.isArray(err)) {
         err.forEach(element => {
             errorArray.push({
