@@ -9,8 +9,8 @@ const traineeRouter = Router();
 
 const { create, list, update, delete: det } = traineeController;
 traineeRouter.route('/trainee')
-    .get(validationChecker(validation.create), create)
-    .post(validationChecker(validation.get), list)
+    .get(validationChecker(validation.get), list)
+    .post(validationChecker(validation.create), create)
     .put(validationChecker(validation.update), update)
     .delete(validationChecker(validation.delete), det)
 
