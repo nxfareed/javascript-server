@@ -19,7 +19,7 @@ export const validation = {
             in: ['body'],
             errorMessage: {}
         },
-        emails: {
+        email: {
             required: true,
             string: true,
             in: ['body'],

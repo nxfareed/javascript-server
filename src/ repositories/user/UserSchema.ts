@@ -6,7 +6,7 @@ class UserSchema extends mongoose.Schema {
             _id: String,
             name: String,
             address: String,
-            emails: String,
+            email: String,
             dob: Date,
             mobileNumber: Number,
             role: String,

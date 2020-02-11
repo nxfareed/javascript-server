@@ -1,7 +1,7 @@
 export default interface IUserCreate {
     name: string
     address: string
-    emails: string
+    email: string
     dob: Date
     mobileNumber: number
     role: string
