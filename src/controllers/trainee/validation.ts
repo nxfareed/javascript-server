@@ -48,7 +48,7 @@ export const validation = {
             in: ['query'],
             errorMessage:{
                 message: 'Limit is invalid',
-                timestamp: new Date();
+                timestamp: new Date()
             }
 
         }
