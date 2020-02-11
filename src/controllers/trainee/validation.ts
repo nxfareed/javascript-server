@@ -19,7 +19,7 @@ export const validation = {
                 timestamp: new Date()
             }
         }
-    },
+    }, 
     delete: {
         id: {
             required: true,
