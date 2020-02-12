@@ -18,14 +18,20 @@ export const validation = {
             required: true,
             regex: '([a-zA-Z])+ ?([a-zA-Z])+$',
             in: ['body'],
-            errorMessage: 'Name is required',
+            errorMessage:{
+                message: 'Name is required',
+                timestamp: new Date()
+            }
         }
-    },
+    }, 
     delete: {
         id: {
             required: true,
-            errorMessage: 'Id is required',
-            in: ['params']
+            in: ['params'],
+            errorMessage:{
+                message: 'Id is required',
+                timestamp: new Date()
+            }
         }
     },
     get: {
@@ -34,14 +40,21 @@ export const validation = {
             default: 0,
             number: true,
             in: ['query'],
-            errorMessage: 'Skip is invalid',
+            errorMessage:{
+                message: 'Skip is invalid',
+                timestamp: new Date()
+            }
         },
         limit: {
             required: false,
             default: 10,
             number: true,
             in: ['query'],
-            errorMessage: 'Limit is invalid',
+            errorMessage:{
+                message: 'Limit is invalid',
+                timestamp: new Date()
+            }
+
         }
     },
     update: {
