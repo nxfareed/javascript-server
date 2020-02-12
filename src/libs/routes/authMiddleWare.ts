@@ -7,7 +7,8 @@ export default (module, permissionType) => (req: Request, res: Response, next: N
 
     try {
         console.log("::AUTHMIDDLEWARE::", module, permissionType);
-        const token: string = req.headers.authorization;
+        const{authorization: token} = req.headers;
+      //  const token: string = req.headers.authorization;
 
         const { secretKey } = config;
 
@@ -23,7 +24,7 @@ export default (module, permissionType) => (req: Request, res: Response, next: N
 
         if (!hasPermissions(module, decodeUser['role'], permissionType)) {
             next({
-                status: 403,
+                errorCode: 403,
                 error: 'Unauthorized Access',
                 message: 'Unauthorized Access',
             })
@@ -33,7 +34,7 @@ export default (module, permissionType) => (req: Request, res: Response, next: N
     }
     catch (error) {
         next({
-            status: 403,
+            errorCode: 403,
             error: 'Unauthorized Access',
             message: error.message,
         });

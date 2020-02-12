@@ -5,7 +5,7 @@ const errorHandler = (err, req, res, next) => {
         err.forEach(element => {
             errorArray.push({
                 error: element,
-                status: 500,
+                errorCode: 500,
                 message: element,
                 timestamp: new Date()
 
@@ -15,7 +15,7 @@ const errorHandler = (err, req, res, next) => {
     } else {
         res.send({
             error: err.error,
-            status: err.code,
+            errorCode: err.errorCode,
             message: err.error || err.message,
             timestamps: new Date()
         })

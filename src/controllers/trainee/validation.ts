@@ -5,8 +5,12 @@ export const validation = {
             required: true,
             string: true,
             in: ['body'],
-            custom: ((value) => {
-                console.log('now you are in custom');
+            custom: ((value) =>{
+                    console.log('Value', value);
+                    throw {
+                        error: 'Error Occured',
+                        message: 'You are in Custom'
+                    }
                 if (!value) { }
             })
         },
