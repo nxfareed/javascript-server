@@ -48,6 +48,7 @@ export default (config) => {
                             config[key].custom(req[location][key]);
                         }
                         catch (err) {
+                            console.log("sd0f0000000s", err.error)
                             arr.push(err.error);
                         }
                     }

@@ -12,5 +12,7 @@ traineeRouter.route('/trainee')
     .get(authMiddleWare('getTrainee', 'read'), validationChecker(validation.get), list)
     .post(authMiddleWare('getTrainee', 'write'), validationChecker(validation.create), create)
     .put(authMiddleWare('getTrainee', 'write'), validationChecker(validation.update), update)
+
+traineeRouter.route('/trainee/:id')
     .delete(authMiddleWare('getTrainee', 'delete'), validationChecker(validation.delete), det)
 export default traineeRouter; 

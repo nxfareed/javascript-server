@@ -7,10 +7,7 @@ export const validation = {
             in: ['body'],
             custom: ((value) =>{
                     console.log('Value', value);
-                    throw {
-                        error: 'Error Occured',
-                        message: 'You are in Custom'
-                    }
+                    
                 if (!value) { }
             })
         },
