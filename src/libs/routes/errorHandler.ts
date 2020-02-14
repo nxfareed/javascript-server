@@ -13,10 +13,12 @@ const errorHandler = (err, req, res, next) => {
         });
         res.send(errorArray);
     } else {
+       
+
         res.send({
             error: err.error,
             errorCode: err.errorCode,
-            message: err.error || err.message,
+            message: err.error ||err.arr,
             timestamps: new Date()
         })
     }

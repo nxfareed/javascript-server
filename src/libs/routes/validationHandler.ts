@@ -9,7 +9,9 @@ export default (config) => {
                     let keyValue = req[location][key];
                     const values = Object.keys(req[location]);
 
-                    // If Body has this key, it is Presented
+
+                    console.log(req[location])
+
                     if (config[key].required && !req[location][key]) {
 
                         arr.push(`${key} is requird`);
@@ -18,8 +20,8 @@ export default (config) => {
                     if (config[key].string && typeof (req[location][key]) !== 'string') {
                         arr.push(`${key} should be String`);
                     }
-                    // Check For Skip and limit
-                    if (config[key].number && typeof (req[location][key] !== 'number')) {
+
+                    if (config[key].number && typeof (req[location][key]) !== 'number') {
                         if (values.includes(key)) {
                             if (!keyValue && config[key].default) {
                                 keyValue = config[key].default;
@@ -29,7 +31,8 @@ export default (config) => {
                             }
                         }
                         else {
-                            arr.push(`${key} should be Valid`);
+                            if (req[location][key] === 'undefined')
+                                next();
                         }
                     }
                     if (config[key].regex) {
@@ -41,6 +44,10 @@ export default (config) => {
                     // If Key contains isObject, Checks the Object and is retrived from Body
                     if (config[key].isObject && !(typeof req[location][key] === 'object')) {
                         arr.push('Data is required of type object');
+                    }
+
+                    if (config[key].isObject && typeof req[location][key] === 'object' && Object.entries(keyValue).length === 0) {
+                        arr.push('Data is required in the defined object');
                     }
                     // If key Contains Custom function
                     if (config[key].custom) {
