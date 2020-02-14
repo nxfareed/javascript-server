@@ -17,7 +17,6 @@ export const validation = {
             in: ['body'],
             errorMessage:{
                 message: 'Name is required',
-                
             }
         }
     }, 
@@ -27,7 +26,6 @@ export const validation = {
             in: ['params'],
             errorMessage:{
                 message: 'Id is required',
-                
             }
         }
     },
@@ -39,7 +37,6 @@ export const validation = {
             in: ['query'],
             errorMessage:{
                 message: 'Skip is invalid',
-                
             }
         },
         limit: {
