@@ -5,8 +5,9 @@ export const validation = {
             required: true,
             string: true,
             in: ['body'],
-            custom: ((value) => {
-                console.log('now you are in custom');
+            custom: ((value) =>{
+                    console.log('Value', value);
+                    console.log("Now you are in custom")
                 if (!value) { }
             })
         },
@@ -14,14 +15,18 @@ export const validation = {
             required: true,
             regex: '([a-zA-Z])+ ?([a-zA-Z])+$',
             in: ['body'],
-            errorMessage: 'Name is required',
+            errorMessage:{
+                message: 'Name is required',
+            }
         }
-    },
+    }, 
     delete: {
         id: {
             required: true,
-            errorMessage: 'Id is required',
-            in: ['params']
+            in: ['params'],
+            errorMessage:{
+                message: 'Id is required',
+            }
         }
     },
     get: {
@@ -30,14 +35,20 @@ export const validation = {
             default: 0,
             number: true,
             in: ['query'],
-            errorMessage: 'Skip is invalid',
+            errorMessage:{
+                message: 'Skip is invalid',
+            }
         },
         limit: {
             required: false,
             default: 10,
             number: true,
             in: ['query'],
-            errorMessage: 'Limit is invalid',
+            errorMessage:{
+                message: 'Limit is invalid',
+                
+            }
+
         }
     },
     update: {
@@ -53,7 +64,9 @@ export const validation = {
             custom: (dataToUpdate) => {
                 {
                     console.log('now you are in custom');
-                    if (!dataToUpdate) { };
+                    if (!dataToUpdate) {
+                         
+                     };
                 }
             },
         }
