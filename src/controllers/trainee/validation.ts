@@ -5,8 +5,9 @@ export const validation = {
             required: true,
             string: true,
             in: ['body'],
-            custom: ((value) => {
-                console.log('now you are in custom');
+            custom: ((value) =>{
+                    console.log('Value', value);
+                    console.log("Now you are in custom")
                 if (!value) { }
             })
         },
@@ -16,7 +17,6 @@ export const validation = {
             in: ['body'],
             errorMessage:{
                 message: 'Name is required',
-                timestamp: new Date()
             }
         }
     }, 
@@ -26,7 +26,6 @@ export const validation = {
             in: ['params'],
             errorMessage:{
                 message: 'Id is required',
-                timestamp: new Date()
             }
         }
     },
@@ -38,7 +37,6 @@ export const validation = {
             in: ['query'],
             errorMessage:{
                 message: 'Skip is invalid',
-                timestamp: new Date()
             }
         },
         limit: {
@@ -48,7 +46,7 @@ export const validation = {
             in: ['query'],
             errorMessage:{
                 message: 'Limit is invalid',
-                timestamp: new Date()
+                
             }
 
         }
@@ -66,7 +64,9 @@ export const validation = {
             custom: (dataToUpdate) => {
                 {
                     console.log('now you are in custom');
-                    if (!dataToUpdate) { };
+                    if (!dataToUpdate) {
+                         
+                     };
                 }
             },
         }

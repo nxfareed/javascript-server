@@ -1,12 +1,11 @@
 const errorHandler = (err, req, res, next) => {
     console.log('Error', err);
     const errorArray = [];
-    console.log('-----------IS ARRAY-----------', Array.isArray(err));
     if (Array.isArray(err)) {
         err.forEach(element => {
             errorArray.push({
                 error: element,
-                status: 500,
+                errorCode: 500,
                 message: element,
                 timestamp: new Date()
 
@@ -14,10 +13,12 @@ const errorHandler = (err, req, res, next) => {
         });
         res.send(errorArray);
     } else {
+       
+
         res.send({
             error: err.error,
-            status: err.code,
-            message: err.error || err.message,
+            errorCode: err.errorCode,
+            message: err.error ||err.arr,
             timestamps: new Date()
         })
     }
