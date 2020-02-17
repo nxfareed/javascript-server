@@ -10,6 +10,6 @@ userRouter.route('/')
     .get(authMiddleware('getUsers', 'read'), validationHandler(validation.get), userController.list)
     .post(authMiddleware('getUsers', 'read'), validationHandler(validation.create), userController.create)
     .put(authMiddleware('getUsers', 'read'), validationHandler(validation.update), userController.update);
-userRouter.delete('/user/:id', authMiddleware('getUsers', 'read'), validationHandler(validation.delete), userController.delete);
+userRouter.delete('/:id', authMiddleware('getUsers', 'read'), validationHandler(validation.delete), userController.delete);
 
 export default userRouter;
