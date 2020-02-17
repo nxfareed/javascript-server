@@ -10,7 +10,8 @@ export default (module, permissionType) => (req: IRequest, res: Response, next: 
     try {
         const userRepository = new UserRepository();
         console.log("::AUTHMIDDLEWARE::", module, permissionType);
-        const token: string = req.headers.authorization;
+        const{authorization: token} = req.headers;
+      //  const token: string = req.headers.authorization;
 
         const { secretKey } = config;
 
@@ -48,7 +49,7 @@ export default (module, permissionType) => (req: IRequest, res: Response, next: 
     }
     catch (error) {
         next({
-            status: 403,
+            errorCode: 403,
             error: 'Unauthorized Access',
             message: error.message,
         });
