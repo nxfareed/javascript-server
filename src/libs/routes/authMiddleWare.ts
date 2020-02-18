@@ -29,7 +29,15 @@ export default (module, permissionType) => (req: IRequest, res: Response, next: 
 
         userRepository.findone({ _id: id, email })
             .then(data => {
-                req.user = data;
+                if(data !== null)
+                    req.user = data;
+                if(data === null){
+                    next({
+                        error: 'Unauthorised Access',
+                        message: 'User does not exist'
+                    })
+                }
+
             }).catch(err => next({
                 status: 403,
                 error: 'Unauthorized Access',
