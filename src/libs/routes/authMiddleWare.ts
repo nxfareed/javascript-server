@@ -20,7 +20,7 @@ export default (module, permissionType) => (req: Request, res: Response, next: N
                 message: 'Unauthorized Access',
             })
         }
-        console.log(decodeUser)
+        //console.log(decodeUser)
 
         if (!hasPermissions(module, decodeUser['role'], permissionType)) {
             next({
