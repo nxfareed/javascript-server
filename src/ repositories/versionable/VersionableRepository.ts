@@ -1,69 +1,65 @@
-import * as mongoose from 'mongoose'
+import * as mongoose from 'mongoose';
+import IVersionableModel from './ IVersionableDocument';
+
 export default class VersionableRepository<D extends mongoose.Document, M extends mongoose.Model<D>> {
-    static generateObjectId() {
-        return String(mongoose.Types.ObjectId());
-    }
-    private modelType: M;
-    constructor(modelType) {
+
+    constructor(modelType: any) {
         this.modelType = modelType;
     }
-    count(): mongoose.Query<Number> {
+    public getObjectId() {
+        return String(mongoose.Types.ObjectId());
+    }
+
+    public modelType: M;
+
+    public count() {
         return this.modelType.countDocuments();
-    };
-    findOne(query): mongoose.Query<D> {
+    }
+
+    public findOne(query) {
         return this.modelType.findOne(query);
-    };
-    public create(options): Promise<D> {
-        const id = VersionableRepository.generateObjectId();
+    }
+
+    public async create(options): Promise<D> {
+        const id = this.getObjectId();
+        delete options.deletedAt;
         return this.modelType.create({
             ...options,
             _id: id,
             originalId: id,
-            createdBy: id
-        })
+            createdAt: Date.now(),
+            
+        });
+
     }
-
-
-
-
-
-    public update(id, data) {
-        this.modelType
-            .findById(id)
-            .then(user => {
-                //console.log('user',user)
-                const updatedData = Object.assign(user, data);
-                this.updateAndCreate(user);
-            })
-            .catch(error => {
-                throw error;
-            });
-        const deleteddata = {
-            deletedBy: id,
-            deletedAt: new Date()
-        };
-        return this.modelType.update(id, deleteddata);
-    }
-
-    public updateAndCreate(options) {
+    public async update(id, options): Promise<D> {
         console.log(options);
-        const id = VersionableRepository.generateObjectId();
+        const ID = this.getObjectId();
+       const result = await this.newUpdatedData(id);
+       const doc = result.toJSON();
+       console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",doc);
+       delete doc.deletedAt;
         return this.modelType.create({
-            name: options.name,
-            hobbies: options.hobbies,
-            email: options.email,
-            address: options.address,
-            dob: options.dob,
-            role: options.role,
-            mobileNumber: options.mobileNumber,
-            originalID: options.originalID,
+           ...doc,
             ...options,
-            _id: id,
-            createdBy: id,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            updatedBy: options.id
+            
+            _id: ID,
+            originalId: id,
+            updatedAt: Date.now(),
         });
     }
-    
+    public async newUpdatedData(id): Promise<D> {
+        const data = await this.modelType.findByIdAndUpdate(id, {
+            deletedAt: Date.now(),
+        });
+        return data;
+    }
+
+    public async list() {
+        return this.modelType.find();
+    }
+
+    public async delete(id: string) {
+        await this.newUpdatedData(id);
+    }
 }

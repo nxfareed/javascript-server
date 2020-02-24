@@ -1,19 +1,15 @@
-
-import * as mongoose from 'mongoose'
-export default class VersionScema extends mongoose.Schema {
+import * as mongoose from 'mongoose';
+export default class VersionableSchema extends mongoose.Schema {
     constructor(schema, options) {
         const baseSchema = {
-            createdAt: {
-                type: Date,
-                default: Date.now
-            },
-            originalId: String,
-            updatedAt: Date,
+            createdAt: Date,
             createdBy: String,
-            deletedBy: String,
+            updatedAt: Date,
             updatedBy: String,
-            deletedAt: String,
-        }
+            deletedAt: Date,
+            deletedBy: String,
+            originalId: String,
+        };
         super({ ...schema, ...baseSchema }, options);
     }
 }
