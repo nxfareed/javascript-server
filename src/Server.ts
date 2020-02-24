@@ -25,16 +25,16 @@ class Server {
     }
     run = () => {
         const { app, config: { port, mongoDBUrl } } = this;
-        Database.open(mongoDBUrl).then(()=>{
-        this.app.listen(this.config.port, (err) => {
-            if (err) {
-                console.log("error");
-                throw err;
-            }
-            console.log('App is running successfully on port ' + port);
-            Database.disconnect();
-        });
-    })
+        Database.open(mongoDBUrl).then(() => {
+            this.app.listen(this.config.port, (err) => {
+                if (err) {
+                    console.log("error");
+                    throw err;
+                }
+                console.log('App is running successfully on port ' + port);
+                //Database.disconnect();
+            });
+        })
     }
     setupRoutes = () => {
         const { app } = this;
