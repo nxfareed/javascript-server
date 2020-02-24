@@ -38,13 +38,9 @@
     "body-parser": "^1.19.0",
     "commitizen": "^4.0.3",
     "dotenv": "^8.2.0",
+    "mongoose": "^5.9.1", 
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-<<<<<<< HEAD
-    "body-parser": "^1.19.0"
-=======
-    "mongoose": "^5.9.1"
->>>>>>> 4e1cc861fc4ec41afa7205971a32fb5d6d0f55b9
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "@babel/node": "^7.8.3",
