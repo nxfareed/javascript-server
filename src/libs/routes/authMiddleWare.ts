@@ -2,9 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import config from './../../config/configuration';
 import hasPermissions from './permission';
-import {UserRepository} from './../../ repositories/user/UserRepository';
-const userRepository = new UserRepository();
-export default (module, permissionType) => async (req: Request, res: Response, next: NextFunction) => {
+import IRequest from './IRequest';
+import { UserRepository } from "./../../ repositories/user/UserRepository"
+
+export default (module, permissionType) => (req: IRequest, res: Response, next: NextFunction) => {
 
     try {
         const userRepository = new UserRepository();
@@ -13,16 +14,8 @@ export default (module, permissionType) => async (req: Request, res: Response, n
       //  const token: string = req.headers.authorization;
 
         const { secretKey } = config;
+
         const decodeUser = jwt.verify(token, secretKey);
-       const users = await userRepository.findone({_id:decodeUser.id, deletedAt:undefined})
-        if(!users){
-            next({
-                status: 403,
-                error: 'Unauthorized Access',
-                message: 'User does not exist',
-            })
-        }
-        
         console.log(decodeUser);
         if (!decodeUser) {
             next({
