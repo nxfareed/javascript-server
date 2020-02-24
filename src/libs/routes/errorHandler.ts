@@ -18,7 +18,7 @@ const errorHandler = (err, req, res, next) => {
         res.send({
             error: err.error,
             errorCode: err.errorCode,
-            message: err.error ||err.arr,
+            message: err.message ||err.arr,
             timestamps: new Date()
         })
     }
