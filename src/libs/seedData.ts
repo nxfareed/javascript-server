@@ -1,11 +1,18 @@
 import { UserRepository } from './../ repositories/user/UserRepository';
+import * as bcrypt from 'bcrypt';
+import config from '../config/configuration';
 
 const userRepository = new UserRepository();
 
-export default () => {
+export default () => 
+bcrypt.hash(config.password, 10, (err, hash) => {
+    if(err){
+        console.log(err);
+    }
     const user = {
         name: 'Head Trainer',
         address: 'Noida',
+        password: hash,
         dob: new Date('12/27/1993'),
         email: 'vinay@nodeexperts.com',
         mobileNumber: 9718223533,
@@ -17,7 +24,7 @@ export default () => {
         console.log('Count as users is', count);
 
         if (!count) {
-            return userRepository.create(user)
+            return userRepository.create(user, undefined)
                 .then((res) => {
                     console.log('User seeded successfully', res);
                 });
@@ -26,4 +33,4 @@ export default () => {
         console.log('User already seeded')
     })
         .catch((err) => console.log(err));
-}
+})

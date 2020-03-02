@@ -15,12 +15,12 @@ export class UserRepository extends VersionableRepository<IUserModel, mongoose.M
         return String(mongoose.Types.ObjectId());
     }
 
-    create = (data:any) => {
+    create = (data:any, userId) => {
         const userData = {
             _id: this.generateObjectId(),
             ...data
         }
-        return super.create(data);
+        return super.create(data, userId);
     }
 
     count = () => {
@@ -34,15 +34,15 @@ export class UserRepository extends VersionableRepository<IUserModel, mongoose.M
         return super.findOne(query);
     }
 
-    update = (id, data) => {
-        return super.update(id, data);
+    update = (id, data, userId) => {
+        return super.update(id, data, userId);
     }
 
     list = () => {
         return super.list();
     }
 
-    delete = (id) => {
-        return super.delete(id);
+    delete = (id, userId) => {
+        return super.delete(id, userId);
     }
 }
