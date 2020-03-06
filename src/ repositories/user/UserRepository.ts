@@ -5,44 +5,30 @@ import IUserCreate from './entities/IUserCreate';
 import VersionableRepository from '../versionable/VersionableRepository';
 
 export class UserRepository extends VersionableRepository<IUserModel, mongoose.Model<IUserModel>> {
-    private userModel: mongoose.Model<IUserModel>;
 
-    constructor() {
-        super(userModel);
-    }
+  private userModel: mongoose.Model<IUserModel>;
 
-    private generateObjectId() {
-        return String(mongoose.Types.ObjectId());
-    }
+  constructor() {
+      super(userModel);
+  }
+  createUser = (data: any, userId) => {
+      return super.create(data);
+  };
+  count = () => {
+      return super.count();
+  }
+  update = (id: string, data: any, userId: string) => {
+      return super.update(id, data, undefined);
+  }
+  list = ( skip, limit, sortBy, searchBy) => {
+      return super.list(skip, limit, sortBy, searchBy);
+  }
+  delete = (id: string, userId) => {
+      if (id !== undefined) {
+          return super.delete(id, userId);
+      } else {
+          console.log('Please enter Id');
+      }
+  };
 
-    create = (data:any, userId) => {
-        const userData = {
-            _id: this.generateObjectId(),
-            ...data
-        }
-        return super.create(data, userId);
-    }
-
-    count = () => {
-        //console.log("hello");
-        return super.count();
-    }
-
-    findone = (query) => {
-        console.log(query)
-
-        return super.findOne(query);
-    }
-
-    update = (id, data, userId) => {
-        return super.update(id, data, userId);
-    }
-
-    list = () => {
-        return super.list();
-    }
-
-    delete = (id, userId) => {
-        return super.delete(id, userId);
-    }
 }

@@ -27,7 +27,7 @@ export default (module, permissionType) => (req: IRequest, res: Response, next: 
         console.log(decodeUser["role"])
         const { id, email } = decodeUser;
 
-        userRepository.findone({ _id: id, email })
+        userRepository.findOne({ _id: id, email })
             .then(data => {
                 if(data !== null)
                     req.user = data;

@@ -4,7 +4,7 @@ import config from '../config/configuration';
 
 const userRepository = new UserRepository();
 
-export default () => 
+export default () =>
 bcrypt.hash(config.password, 10, (err, hash) => {
     if(err){
         console.log(err);
@@ -24,7 +24,7 @@ bcrypt.hash(config.password, 10, (err, hash) => {
         console.log('Count as users is', count);
 
         if (!count) {
-            return userRepository.create(user, undefined)
+            return userRepository.create(user)
                 .then((res) => {
                     console.log('User seeded successfully', res);
                 });
