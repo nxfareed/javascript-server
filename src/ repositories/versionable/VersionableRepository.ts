@@ -21,9 +21,7 @@ export default class VersionableRepository<D extends mongoose.Document, M extend
   }
 
   public async findOne(query) {
-    console.log("ddddddddddddddddddddddd",query);
-    const rn= await this.modelType.findOne(query).lean();
-    console.log("rnrnrnrnnrnrrnrnrnrnrnrnrnrnrnrnrnrn", rn);
+    const rn = await this.modelType.findOne(query).lean();
     return rn;
   }
 
@@ -39,11 +37,9 @@ export default class VersionableRepository<D extends mongoose.Document, M extend
 
   }
   public async update(id, options, userId): Promise<D> {
-    console.log(options);
     const ID = this.getObjectId();
     const result = await this.newUpdatedData(id, userId);
     const doc = result.toJSON();
-    console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq", doc);
     delete doc.deletedAt;
     return this.modelType.create({
       ...doc,
@@ -55,6 +51,7 @@ export default class VersionableRepository<D extends mongoose.Document, M extend
     });
   }
   public async newUpdatedData(id, userId): Promise<D> {
+    mongoose.set('useFindAndModify', false);
     const data = await this.modelType.findByIdAndUpdate(id, {
       deletedAt: Date.now(),
       deletedBy: userId
@@ -62,18 +59,12 @@ export default class VersionableRepository<D extends mongoose.Document, M extend
     return data;
   }
 
-  public async list( skip, limit, sortBy, searchBy) {
+  public async list(skip, limit, sortBy, searchBy) {
     return this.modelType.find({ deletedAt: undefined, ...searchBy }).sort(sortBy).skip(Number(skip)).limit(Number(limit));
-}
-
-
-  // public async list( skip, limit, sortBy, searchBy) {
-  //   const re = await this.modelType.find({deletedAt: undefined }).sort(sortBy).skip(Number(skip)).limit(Number(limit)).find(searchBy);
-  //   console.log("eeeeeeeeeeeeeeeeeeeeee", re);
-  //   return re;
-  // }
+  }
 
   public async delete(id: string, userId) {
-    await this.newUpdatedData(id, userId);
+    const rec = await this.newUpdatedData(id, userId);
+    return rec;
   }
 }

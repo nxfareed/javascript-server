@@ -13,6 +13,6 @@ traineeRouter.route('/')
     .post(authMiddleWare('getTrainee', 'write'), validationHandler(Create), create)
     .put(authMiddleWare('getTrainee', 'write'), validationHandler(Update), update);
 
-traineeRouter.route('/trainee/:id')
+traineeRouter.route('/:id')
     .delete(authMiddleWare('getTrainee', 'delete'), validationHandler(Det), det);
-export default traineeRouter; 
+export default traineeRouter;

@@ -9,26 +9,26 @@ export class UserRepository extends VersionableRepository<IUserModel, mongoose.M
   private userModel: mongoose.Model<IUserModel>;
 
   constructor() {
-      super(userModel);
+    super(userModel);
   }
   createUser = (data: any, userId) => {
-      return super.create(data);
+    return super.create(data);
   };
   count = () => {
-      return super.count();
+    return super.count();
   }
   update = (id: string, data: any, userId: string) => {
-      return super.update(id, data, undefined);
+    return super.update(id, data, undefined);
   }
-  list = ( skip, limit, sortBy, searchBy) => {
-      return super.list(skip, limit, sortBy, searchBy);
+  list = (skip, limit, sortBy, searchBy) => {
+    return super.list(skip, limit, sortBy, searchBy);
   }
-  delete = (id: string, userId) => {
-      if (id !== undefined) {
-          return super.delete(id, userId);
-      } else {
-          console.log('Please enter Id');
-      }
-  };
-
+  public async delete(id, userId) {
+    if (id !== undefined) {
+      const data = await super.delete(id, userId);
+      return data;
+    } else {
+      console.log('Please enter Id');
+    }
+  }
 }

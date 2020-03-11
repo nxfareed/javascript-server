@@ -15,23 +15,31 @@ class TraineeController {
   }
 
   create = async (req: IRequest, res: Response) => {
-
     console.log(':::::::::::::::::::CREATE USER:::::::::::::::::::');
     try {
-      const userData = req.body;
-      const userId = req.user._id;
-      const hash = await bcrypt.hash(userData.password, 10);
-      userData.password = hash;
-      const user = await this.userRepository.create({ ...userData, password: hash });
-      if (user) {
-        return SystemResponse.success(res, user, 'User Added Successfully');
+      const List = await this.userRepository.list(req.query.skip, req.query.limit, {}, { email: { $regex: req.body.email.toLowerCase() } });
+      let f = 0;
+      List.forEach(element => {
+        if (element.email === req.body.email)
+          f++;
+      });
+      if (List === undefined || f === 0) {
+        const userData = req.body;
+        const userId = req.user._id;
+        const hash = await bcrypt.hash(userData.password, 10);
+        userData.password = hash;
+        const user = await this.userRepository.create({ ...userData, password: hash });
+        if (user) {
+          return SystemResponse.success(res, user, 'User Added Successfully');
+        }
       }
-
+      else {
+        return SystemResponse.error(res, req.body.email, 'User already Exist');
+      }
     }
     catch (error) {
       return SystemResponse.error(res, error.message, 'User Added UnSuccessfull');
     }
-
   }
 
   update = async (req: IRequest, res: Response) => {
@@ -48,42 +56,6 @@ class TraineeController {
       return SystemResponse.error(res, error, 'User Updated UnSuccessfull');
     }
   }
-  // list = async (req: Request, res: Response) => {
-  //   console.log(':::::::::::::::::::USER LIST::::::::::::::::::::');
-  //   try {
-  //       let user;
-  //       console.log('::::::::::::::::::::-INSIDE LIST TRAINEE-::::::::::::::::::::');
-  //       let sortBy = {};
-  //       if (req.query.sortBy) {
-  //           sortBy[req.query.sortBy] = 1;
-  //       }
-  //       else {
-  //           sortBy = { updatedAt: 1 };
-  //       }
-  //       if (req.query.search !== undefined) {
-  //           user = await this.userRepository.list('trainee', req.query.skip, req.query.limit, sortBy, { name: { $regex: req.query.search.toLowerCase() } });
-  //           const List = await this.userRepository.list('trainee', req.query.skip, req.query.limit, sortBy, { email: { $regex: req.query.search.toLowerCase() } });
-  //           user = { ...user, ...List };
-  //       } else {
-  //           user = await this.userRepository.list('trainee', req.query.skip, req.query.limit, sortBy, {});
-  //       }
-  //       const countTrainee = await this.userRepository.countTrainee();
-  //       const trainee = {
-  //           count: countTrainee,
-  //           records: user,
-  //       };
-  //       if (user) {
-  //           res.send({
-  //               status: 'ok',
-  //               message: 'Data Listed Successfully',
-  //               users: trainee,
-  //           });
-  //       }
-  //   }
-
-
-
-
 
   list = async (req: IRequest, res: Response) => {
     console.log(':::::::::::::::::::USER LIST::::::::::::::::::::');
@@ -98,12 +70,11 @@ class TraineeController {
         sortBy = { updatedAt: 1 };
       }
       if (req.query.search !== undefined) {
-        user = await this.userRepository.list( req.query.skip, req.query.limit, sortBy, { name: { $regex: req.query.search.toLowerCase() } });
-        const List = await this.userRepository.list( req.query.skip, req.query.limit, sortBy, { email: { $regex: req.query.search.toLowerCase() } });
+        user = await this.userRepository.list(req.query.skip, req.query.limit, sortBy, { name: { $regex: req.query.search.toLowerCase() } });
+        const List = await this.userRepository.list(req.query.skip, req.query.limit, sortBy, { email: { $regex: req.query.search.toLowerCase() } });
         user = { ...user, ...List };
       } else {
-        user = await this.userRepository.list( req.query.skip, req.query.limit, sortBy, {});
-        console.log("asssssasasasasasasasasas",user);
+        user = await this.userRepository.list(req.query.skip, req.query.limit, sortBy, {});
       }
       // user = await this.userRepository.list('trainee', req.query.skip, req.query.limit, sortBy, {});
       const countTrainee = await this.userRepository.countTrainee();
@@ -119,37 +90,32 @@ class TraineeController {
         });
       }
     }
-
     catch (error) {
       return SystemResponse.error(res, error, 'No List Exist');
     }
   }
 
-
-
-
-
-
-
   delete = async (req: IRequest, res: Response) => {
     console.log(':::::::::::::::::::Delete USER:::::::::::::::::::');
     try {
-      const userData = req.params;
-      const userId = req.user._id;
-      const user: any = await this.userRepository.delete(userData.id, userId);
+      const List = await this.userRepository.list(req.query.skip, req.query.limit, {}, { email: { $regex: req.body.email.toLowerCase() } });
 
-      if (user) {
-        return SystemResponse.success(res, user, 'User Deleted Successfully');
+      if (Array.isArray(List) && (List.length === 0)) {
+        return SystemResponse.error(res, req.body.email, 'User does not  Exist');
+      }
+      else {
+        const userData = req.params;
+        const userId = req.user._id;
+        const user: any = await this.userRepository.delete(userData.id, userId);
+        if (user) {
+          return SystemResponse.success(res, user, 'User Deleted Successfully');
+        }
       }
     }
     catch (error) {
       return SystemResponse.error(res, error, 'User Deleted UnSuccessfull');
     }
   }
-
-
-
-
 }
 
 export default TraineeController.getInstance();

@@ -41,7 +41,8 @@ class UserController {
                 });
             }
             console.log('Password matched');
-            const token = jwt.sign({ email: user.email, id: user.originalId, role:user.role }, config.secretKey);
+            // const token = jwt.sign({ email: user.email, id: user.originalId, role:user.role },exp: Math.floor(Date.now() / 1000) + 15 * 60 }, config.secretKey);
+            const token = jwt.sign({ email: user.email, id: user.originalId, role:user.role, exp: Math.floor(Date.now() / 1000) + 15 * 60 }, config.secretKey);
             res.status(200).send({
                 message: 'Login Successful',
                 data: token,
@@ -57,76 +58,6 @@ class UserController {
         console.log(req.user)
         res.send(req.user);
     }
-
-
-    // create = (req: Request, res: Response) => {
-    //     try {
-
-    //         console.log(' :::::::::: Inside Create Trainee :::::::: ');
-
-    //         const { email, name, address, hobbies, dob, mobileNumber, role } = req.body;
-
-    //         this.userRepository.create({
-    //             email, name, address, hobbies, dob, mobileNumber, role
-    //         }).then(user => {
-    //             return SystemResponse.success(res, user, 'trainee added successfully');
-    //         }).catch(error => {
-    //             throw error
-    //         })
-
-    //     }
-    //     catch (err) {
-    //     }
-    // };
-
-    // list = (req: Request, res: Response) => {
-    //     try {
-    //         console.log(' :::::::::: Inside List Trainee :::::::: ');
-    //         this.userRepository.list().then(user => {
-    //             console.log(user);
-    //             return SystemResponse.success(res, user, 'Users List');
-    //         }).catch(error => {
-    //             throw error
-    //         })
-    //     }
-    //     catch (err) {
-
-    //     }
-    // };
-    // update = (req: Request, res: Response) => {
-    //     try {
-    //         console.log(' :::::::::: Inside Update Trainee :::::::: ');
-    //         const { id, dataToUpdate } = req.body;
-    //         //const { emails, name, address, hobbies, dob, mobileNumber } = dataToUpdate;
-
-    //         this.userRepository.update({ _id: id }, dataToUpdate).then(user => {
-    //             this.userRepository.findone({ _id: id }).then(user => {
-    //                 return SystemResponse.success(res, user, 'Updated user');
-    //             }).catch(error => {
-    //                 throw error
-    //             })
-    //             //return SystemResponse.success(res, user, 'trainee updated successfully');
-    //         }).catch(error => {
-    //             throw error
-    //         })
-    //     }
-    //     catch (err) {
-    //     }
-    // };
-    // delete = (req: Request, res: Response) => {
-    //     try {
-    //         console.log(' :::::::::: Inside Delete Trainee :::::::: ');
-    //         const { id } = req.params;
-    //         this.userRepository.delete({ _id: id }).then(user => {
-    //             console.log(user);
-    //             return SystemResponse.success(res, user, 'Users List');
-    //         }).catch(error => {
-    //             throw error
-    //         })
-    //     }
-    //     catch (err) {
-    //     }
-    // };
 }
 
 export default UserController.getInstance();
