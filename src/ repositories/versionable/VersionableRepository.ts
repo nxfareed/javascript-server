@@ -20,39 +20,38 @@ export default class VersionableRepository<D extends mongoose.Document, M extend
         return this.modelType.findOne(query);
     }
 
-    public async create(options, userId): Promise<D> {
+    public async create(options, Id): Promise<D> {
         const id = this.getObjectId();
         delete options.deletedAt;
         return this.modelType.create({
             ...options,
             _id: id,
             originalId: id,
-            createdBy: userId,
+            createdBy: Id,
             createdAt: Date.now(),
-            
+
         });
 
     }
-    public async update(id, options, userId): Promise<D> {
+    public async update(id, options, Id): Promise<D> {
         console.log(options);
         const ID = this.getObjectId();
-       const result = await this.newUpdatedData(id, userId);
+       const result = await this.newUpdatedData(id, Id);
        const doc = result.toJSON();
-       console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",doc);
        delete doc.deletedAt;
         return this.modelType.create({
            ...doc,
             ...options,
-            
+
             _id: ID,
             originalId: id,
             updatedAt: Date.now(),
         });
     }
-    public async newUpdatedData(id, userId): Promise<D> {
+    public async newUpdatedData(id, Id): Promise<D> {
         const data = await this.modelType.findByIdAndUpdate(id, {
             deletedAt: Date.now(),
-            deletedBy: userId
+            deletedBy: Id
         });
         return data;
     }
@@ -61,7 +60,7 @@ export default class VersionableRepository<D extends mongoose.Document, M extend
         return this.modelType.find();
     }
 
-    public async delete(id: string, userId) {
-        await this.newUpdatedData(id, userId);
+    public async delete(id: string, Id) {
+        await this.newUpdatedData(id, Id);
     }
 }

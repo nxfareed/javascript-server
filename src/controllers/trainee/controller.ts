@@ -1,8 +1,8 @@
+import * as bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { UserRepository}  from '../../ repositories/user/UserRepository';
-import SystemResponse from '../../libs/SystemResponse';
-import IRequest from './../../libs/routes/IRequest';
-import * as bcrypt from 'bcrypt';
+import {IRequest, SystemResponse} from './../../libs/index';
+
 class TraineeController {
     static instance: any;
     private userRepository: UserRepository = new UserRepository();
@@ -26,12 +26,12 @@ class TraineeController {
                 if (user) {
                     return SystemResponse.success(res, user, 'User Added Successfully');
                 }
-                
+
         }
         catch (error) {
             return SystemResponse.error(res, error.message, 'User Added UnSuccessfull');
         }
-         
+
     }
 
     update = async (req: IRequest, res: Response) => {
