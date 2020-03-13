@@ -24,7 +24,7 @@ const { create, list, update, delete: det } = traineeController;
  *          password:
  *              type: string
  *              example: qwerty
- *          mob:
+ *          mobileNumber:
  *              type: number
  *              example: "987654321"
  *          address:
