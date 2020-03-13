@@ -1,10 +1,9 @@
+import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
 import { UserRepository } from './../../ repositories/user/UserRepository'
-import SystemResponse from '../../libs/SystemResponse';
-import IRequest from './../../libs/routes/IRequest'
-import * as bcrypt from 'bcrypt';
+import {IRequest, SystemResponse} from './../../libs/index';
 import config from '../../config/configuration';
-import * as jwt from 'jsonwebtoken';
 
 class UserController {
     static instance: UserController;

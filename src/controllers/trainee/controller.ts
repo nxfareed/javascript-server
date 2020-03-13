@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
-import { UserRepository } from '../../ repositories/user/UserRepository';
-import SystemResponse from '../../libs/SystemResponse';
-import IRequest from './../../libs/routes/IRequest';
 import * as bcrypt from 'bcrypt';
+import { Request, Response } from 'express';
+import { UserRepository}  from '../../ repositories/user/UserRepository';
+import {IRequest, SystemResponse} from './../../libs/index';
+
 class TraineeController {
   static instance: any;
   private userRepository: UserRepository = new UserRepository();
