@@ -15,12 +15,11 @@ class TraineeController {
   }
 
   create = async (req: IRequest, res: Response) => {
-    console.log(':::::::::::::::::::CREATE USER:::::::::::::::::::');
     try {
       const List = await this.userRepository.list(req.query.skip, req.query.limit, {}, { email: { $regex: req.body.email.toLowerCase() } });
       let f = 0;
       List.forEach(element => {
-        if (element.email === req.body.email)
+        if (element.email.toLowerCase === req.body.email.toLowerCase)
           f++;
       });
       if (List === undefined || f === 0) {
@@ -38,12 +37,11 @@ class TraineeController {
       }
     }
     catch (error) {
-      return SystemResponse.error(res, error.message, 'User Added UnSuccessfull');
+      return SystemResponse.error(res, error.message, 'User Addition Unsuccessfull');
     }
   }
 
   update = async (req: IRequest, res: Response) => {
-    console.log(':::::::::::::::::::UPDATE USER:::::::::::::::::::');
     try {
       const userData = req.body;
       const userId = req.user._id;
@@ -53,15 +51,14 @@ class TraineeController {
       }
     }
     catch (error) {
-      return SystemResponse.error(res, error, 'User Updated UnSuccessfull');
+      return SystemResponse.error(res, error, 'User Updation Unsuccessfull');
     }
   }
 
   list = async (req: IRequest, res: Response) => {
-    console.log(':::::::::::::::::::USER LIST::::::::::::::::::::');
     try {
       let user;
-      console.log('::::::::::::::::::::-INSIDE LIST TRAINEE-::::::::::::::::::::');
+      const {skip, limit, search} = req.query;
       let sortBy = {};
       if (req.query.sortBy) {
         sortBy[req.query.sortBy] = 1;
@@ -70,13 +67,12 @@ class TraineeController {
         sortBy = { updatedAt: 1 };
       }
       if (req.query.search !== undefined) {
-        user = await this.userRepository.list(req.query.skip, req.query.limit, sortBy, { name: { $regex: req.query.search.toLowerCase() } });
-        const List = await this.userRepository.list(req.query.skip, req.query.limit, sortBy, { email: { $regex: req.query.search.toLowerCase() } });
+        user = await this.userRepository.list(skip, limit, sortBy, { name: { $regex: search.toLowerCase() } });
+        const List = await this.userRepository.list(skip, limit, sortBy, { email: { $regex: search.toLowerCase() } });
         user = { ...user, ...List };
       } else {
         user = await this.userRepository.list(req.query.skip, req.query.limit, sortBy, {});
       }
-      // user = await this.userRepository.list('trainee', req.query.skip, req.query.limit, sortBy, {});
       const countTrainee = await this.userRepository.countTrainee();
       const trainee = {
         count: countTrainee,
@@ -96,14 +92,7 @@ class TraineeController {
   }
 
   delete = async (req: IRequest, res: Response) => {
-    console.log(':::::::::::::::::::Delete USER:::::::::::::::::::');
     try {
-      const List = await this.userRepository.list(req.query.skip, req.query.limit, {}, { email: { $regex: req.body.email.toLowerCase() } });
-
-      if (Array.isArray(List) && (List.length === 0)) {
-        return SystemResponse.error(res, req.body.email, 'User does not  Exist');
-      }
-      else {
         const userData = req.params;
         const userId = req.user._id;
         const user: any = await this.userRepository.delete(userData.id, userId);
@@ -111,9 +100,8 @@ class TraineeController {
           return SystemResponse.success(res, user, 'User Deleted Successfully');
         }
       }
-    }
     catch (error) {
-      return SystemResponse.error(res, error, 'User Deleted UnSuccessfull');
+      return SystemResponse.error(res, error, 'User Deletion Unsuccessfull');
     }
   }
 }
