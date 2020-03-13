@@ -1,7 +1,8 @@
+import * as bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { UserRepository } from '../../ repositories/user/UserRepository';
 import {IRequest, SystemResponse} from './../../libs/index';
-import * as bcrypt from 'bcrypt';
+
 class TraineeController {
   static instance: any;
   private userRepository: UserRepository = new UserRepository();
@@ -15,7 +16,8 @@ class TraineeController {
 
   create = async (req: IRequest, res: Response) => {
     try {
-      const List = await this.userRepository.list(req.query.skip, req.query.limit, {}, { email: { $regex: req.body.email.toLowerCase() } });
+      const{skip, limit} = req.query;
+      const List = await this.userRepository.list(skip, limit, {}, { email: { $regex: req.body.email.toLowerCase() } });
       let f = 0;
       List.forEach(element => {
         if (element.email.toLowerCase === req.body.email.toLowerCase)
@@ -70,7 +72,7 @@ class TraineeController {
         const List = await this.userRepository.list(skip, limit, sortBy, { email: { $regex: search.toLowerCase() } });
         user = { ...user, ...List };
       } else {
-        user = await this.userRepository.list(req.query.skip, req.query.limit, sortBy, {});
+        user = await this.userRepository.list(skip, limit, sortBy, {});
       }
       const countTrainee = await this.userRepository.countTrainee();
       const trainee = {

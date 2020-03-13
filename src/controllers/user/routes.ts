@@ -3,6 +3,7 @@ import userController from './controller';
 import validation from './validation';
 import validationHandler from './../../libs/routes/validationHandler'
 import authMiddleware from './../../libs/routes/authMiddleWare'
+
 const userRouter = express.Router();
 const { get: Get, create: Create, update: Update, delete: Det } = validation;
 const { me, login } = userController;
