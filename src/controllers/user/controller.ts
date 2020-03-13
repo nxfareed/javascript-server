@@ -36,12 +36,11 @@ class UserController {
             console.log('Result is ', result);
             if (!result) {
                 return next({
-                    error: 'Password didnt match',
+                    error: 'Password did not match',
                     status: 422
                 });
             }
             console.log('Password matched');
-            // const token = jwt.sign({ email: user.email, id: user.originalId, role:user.role },exp: Math.floor(Date.now() / 1000) + 15 * 60 }, config.secretKey);
             const token = jwt.sign({ email: user.email, id: user.originalId, role:user.role, exp: Math.floor(Date.now() / 1000) + 15 * 60 }, config.secretKey);
             res.status(200).send({
                 message: 'Login Successful',
