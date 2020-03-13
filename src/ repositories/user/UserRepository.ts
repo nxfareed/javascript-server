@@ -6,8 +6,6 @@ import VersionableRepository from '../versionable/VersionableRepository';
 
 export class UserRepository extends VersionableRepository<IUserModel, mongoose.Model<IUserModel>> {
 
-  // private userModel: mongoose.Model<IUserModel>;
-
   constructor() {
     super(userModel);
   }

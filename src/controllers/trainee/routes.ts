@@ -122,11 +122,6 @@ traineeRouter.route('/')
  *         in: query
  *         required: false
  *         type: string
- *       - name: order
- *         description: Order for Sorting 1 or -1
- *         in: query
- *         required: false
- *         type: number
  *     responses:
  *       200:
  *         description: Trainee List

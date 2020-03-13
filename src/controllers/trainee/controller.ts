@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { UserRepository } from '../../ repositories/user/UserRepository';
-import SystemResponse from '../../libs/SystemResponse';
-import IRequest from './../../libs/routes/IRequest';
+import {IRequest, SystemResponse} from './../../libs/index';
 import * as bcrypt from 'bcrypt';
 class TraineeController {
   static instance: any;
