@@ -1,32 +1,50 @@
 export const validation = {
     create:
     {
-        id: {
-            required: true,
-            string: true,
-            in: ['body'],
-            custom: ((value) =>{
-                    console.log('Value', value);
-                    console.log("Now you are in custom")
-                if (!value) { }
-            })
-        },
         name: {
             required: true,
             regex: '([a-zA-Z])+ ?([a-zA-Z])+$',
             in: ['body'],
-            errorMessage:{
-                message: 'Name is required',
+            errorMessage: 'Name is required',
+        },
+        address: {
+            required: true,
+            string: true,
+            in: ['body'],
+            errorMessage: {}
+        },
+        dob: {
+            required: true,
+            string: true,
+            in: ['body'],
+            errorMessage: {}
+        },
+        email: {
+            required: true,
+            string: true,
+            in: ['body'],
+            errorMessage: {}
+        },
+        mobileNumber: {
+            required: true,
+            number: true,
+            in: ['body'],
+            errorMessage: {}
+
+        },
+        hobbies: {
+            required: true,
+            array: 'String',
+            in: ['body'],
+            errorMessage: {
             }
         }
-    }, 
+    },
     delete: {
         id: {
             required: true,
-            in: ['params'],
-            errorMessage:{
-                message: 'Id is required',
-            }
+            errorMessage: 'Id is required',
+            in: ['params']
         }
     },
     get: {
@@ -35,20 +53,14 @@ export const validation = {
             default: 0,
             number: true,
             in: ['query'],
-            errorMessage:{
-                message: 'Skip is invalid',
-            }
+            errorMessage: 'Skip is invalid',
         },
         limit: {
             required: false,
             default: 10,
             number: true,
             in: ['query'],
-            errorMessage:{
-                message: 'Limit is invalid',
-                
-            }
-
+            errorMessage: 'Limit is invalid',
         }
     },
     update: {
@@ -64,9 +76,7 @@ export const validation = {
             custom: (dataToUpdate) => {
                 {
                     console.log('now you are in custom');
-                    if (!dataToUpdate) {
-                         
-                     };
+                    if (!dataToUpdate) { };
                 }
             },
         }
