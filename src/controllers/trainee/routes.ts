@@ -32,7 +32,7 @@ const { create, list, update, delete: det } = traineeController;
  *              example: Lucknow
  *          dob:
  *              type: Date
- *              example: 23/23/2323
+ *              example: 03/23/2323
  *          role:
  *               type: string
  *               example: trainee
@@ -51,7 +51,7 @@ const { create, list, update, delete: det } = traineeController;
  *          name:
  *              type: string
  *              example: Fareed
- *          mob:
+ *          mobileNumber:
  *              type: number
  *              example: "987654321"
  *          address:
@@ -59,7 +59,7 @@ const { create, list, update, delete: det } = traineeController;
  *              example: Lucknow
  *          dob:
  *              type: Date
- *              example: 23/23/2323
+ *              example: 03/23/2323
  *          role:
  *              type: string
  *              example: trainee
@@ -84,7 +84,7 @@ const { create, list, update, delete: det } = traineeController;
  *          status:
  *              example: 403
  *          timestamp:
- *               example: 2323-23-20T20:45:40.123Z
+ *               example: 2323-03-20T20:45:40.123Z
  *
  */
 traineeRouter.route('/')

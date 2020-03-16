@@ -39,7 +39,7 @@ const { me, login } = userController;
  *   get:
  *     tags:
  *       - User
- *     description: Current user's Detail
+ *     description: Current User's Detail
  *     security:
  *       - Bearer: []
  *     produces:
