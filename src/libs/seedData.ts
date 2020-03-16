@@ -10,7 +10,7 @@ export default () =>
       console.log(err);
     }
     const user = {
-      name: 'Head Trainer',
+      name: 'head Trainer',
       address: 'Noida',
       password: hash,
       dob: new Date('12/27/1993'),

@@ -32,7 +32,7 @@ const { create, list, update, delete: det } = traineeController;
  *              example: Lucknow
  *          dob:
  *              type: Date
- *              example: 23/23/2323
+ *              example: 03/23/2323
  *          role:
  *               type: string
  *               example: trainee
@@ -59,7 +59,7 @@ const { create, list, update, delete: det } = traineeController;
  *              example: Lucknow
  *          dob:
  *              type: Date
- *              example: 23/23/2323
+ *              example: 03/23/2323
  *          role:
  *              type: string
  *              example: trainee
@@ -94,6 +94,8 @@ traineeRouter.route('/')
  *
  * /api/trainee:
  *   get:
+ *     tags:
+ *       - Trainee
  *     description: Returns the list of the trainees
  *     security:
  *       - Bearer: []
@@ -150,6 +152,8 @@ traineeRouter.route('/')
  *
  * /api/trainee:
  *   post:
+ *     tags:
+ *       - Trainee
  *     description: Returns the reponse on successfull creation
  *     security:
  *          - Bearer: []
@@ -194,6 +198,8 @@ traineeRouter.route('/')
  *
  * /api/trainee:
  *   put:
+ *     tags:
+ *       - Trainee
  *     description: Return the reponse on Successfull Creation
  *     security:
  *          - Bearer: []
@@ -242,6 +248,8 @@ traineeRouter.route('/:id')
  *
  * /api/trainee/{id}:
  *   delete:
+ *     tags:
+ *       - Trainee
  *     description: Returns the success reponse on creation
  *     security:
  *       - Bearer: []

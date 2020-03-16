@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { UserRepository } from '../../ repositories/user/UserRepository';
-import {IRequest, SystemResponse} from './../../libs/index';
+import { IRequest, SystemResponse } from './../../libs/index';
 
 class TraineeController {
   static instance: any;
@@ -15,8 +15,9 @@ class TraineeController {
   }
 
   create = async (req: IRequest, res: Response) => {
+    const { success, error: Err } = SystemResponse;
     try {
-      const{skip, limit} = req.query;
+      const { skip, limit } = req.query;
       const List = await this.userRepository.list(skip, limit, {}, { email: { $regex: req.body.email.toLowerCase() } });
       let f = 0;
       List.forEach(element => {
@@ -30,44 +31,46 @@ class TraineeController {
         userData.password = hash;
         const user = await this.userRepository.create({ ...userData, password: hash });
         if (user) {
-          return SystemResponse.success(res, user, 'User Added Successfully');
+          return success(res, user, 'User Added Successfully');
         }
       }
       else {
-        return SystemResponse.error(res, req.body.email, 'User already Exist');
+        return Err(res, req.body.email, 'User already Exist');
       }
     }
     catch (error) {
-      return SystemResponse.error(res, error.message, 'User Addition Unsuccessfull');
+      return Err(res, error.message, 'User Addition Unsuccessfull');
     }
   }
 
   update = async (req: IRequest, res: Response) => {
+    const { success, error: Err } = SystemResponse;
     try {
-      const userData = req.body;
+      const { id, dataToUpdate } = req.body;
       const userId = req.user._id;
-      const user = await this.userRepository.update(userData.id, userData.dataToUpdate, userId);
+      const user = await this.userRepository.update(id, dataToUpdate, userId);
       if (user) {
-        return SystemResponse.success(res, user, 'User Updated Successfully');
+        return success(res, user, 'User Updated Successfully');
       }
     }
     catch (error) {
-      return SystemResponse.error(res, error, 'User Updation Unsuccessfull');
+      return Err(res, error, 'User Updation Unsuccessfull');
     }
   }
 
   list = async (req: IRequest, res: Response) => {
+    const { success, error: Err } = SystemResponse;
     try {
       let user;
-      const {skip, limit, search} = req.query;
+      const { skip, limit, search, sortBy: Sort } = req.query;
       let sortBy = {};
-      if (req.query.sortBy) {
-        sortBy[req.query.sortBy] = 1;
+      if (Sort) {
+        sortBy[Sort] = 1;
       }
       else {
         sortBy = { updatedAt: 1 };
       }
-      if (req.query.search !== undefined) {
+      if (search !== undefined) {
         user = await this.userRepository.list(skip, limit, sortBy, { name: { $regex: search.toLowerCase() } });
         const List = await this.userRepository.list(skip, limit, sortBy, { email: { $regex: search.toLowerCase() } });
         user = { ...user, ...List };
@@ -88,21 +91,22 @@ class TraineeController {
       }
     }
     catch (error) {
-      return SystemResponse.error(res, error, 'No List Exist');
+      return Err(res, error, 'No List Exist');
     }
   }
 
   delete = async (req: IRequest, res: Response) => {
+    const { success, error: Err } = SystemResponse;
     try {
-        const userData = req.params;
-        const userId = req.user._id;
-        const user: any = await this.userRepository.delete(userData.id, userId);
-        if (user) {
-          return SystemResponse.success(res, user, 'User Deleted Successfully');
-        }
+      const userData = req.params;
+      const userId = req.user._id;
+      const user: any = await this.userRepository.delete(userData.id, userId);
+      if (user) {
+        return success(res, user, 'User Deleted Successfully');
       }
+    }
     catch (error) {
-      return SystemResponse.error(res, error, 'User Deletion Unsuccessfull');
+      return Err(res, error, 'User Deletion Unsuccessfull');
     }
   }
 }

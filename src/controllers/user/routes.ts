@@ -37,6 +37,8 @@ const { me, login } = userController;
  *
  * /api/user/me:
  *   get:
+ *     tags:
+ *       - User
  *     description: Current user's Detail
  *     security:
  *       - Bearer: []
@@ -55,6 +57,8 @@ userRouter.route('/me').get(authMiddleware('getUsers', 'read'), validationHandle
  *
  * /api/user/login:
  *   post:
+ *     tags:
+ *       - User
  *     description: Login Credentials
  *     security:
  *       - Bearer: []
