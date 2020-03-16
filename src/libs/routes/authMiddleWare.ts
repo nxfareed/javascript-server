@@ -3,6 +3,7 @@ import * as jwt from 'jsonwebtoken';
 import config from './../../config/configuration';
 import hasPermissions from './permission';
 import IRequest from './IRequest';
+import IUserModel from '../../ repositories/user/IUserModel'
 import { UserRepository } from "./../../ repositories/user/UserRepository"
 
 export default (module, permissionType) => (req: IRequest, res: Response, next: NextFunction) => {
@@ -24,7 +25,7 @@ export default (module, permissionType) => (req: IRequest, res: Response, next: 
     const { id, email } = decodeUser;
 
     userRepository.findOne({ _id: id, email })
-      .then(data => {
+    .then((data: IUserModel)=> {
         if (data !== null)
           req.user = data;
         if (data === null) {
