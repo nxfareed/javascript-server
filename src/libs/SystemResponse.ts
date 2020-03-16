@@ -12,7 +12,7 @@ class SystemResponse {
             message,
             data
 
-        });
-      }
+    });
+  }
 }
 export default SystemResponse;
